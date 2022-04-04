@@ -11,25 +11,25 @@ int addition_matrix(int** matrix_a, int** matrix_b, int row, int col);
 int subtraction_matrix(int** matrix_a, int** matrix_b, int row, int col);
 int transpose_matrix(int** matrix, int** matrix_t, int row, int col);
 int multiply_matrix(int** matrix_a, int** matrix_t, int row, int col);
-
+//들어가게 될 모든 함수 선언
 int main()
 {
 
     char command;
-    printf("[----- [박성준]  [2021040026] -----]\n");
+    printf("[----- [박성준]  [2021040026] -----]\n");//학번,이름
 
     int row, col;
-    srand(time(NULL));
+    srand(time(NULL));//난수생성을 위한 함수 
 
     printf("Input row and col : ");
-    scanf("%d %d", &row, &col);
-    int** matrix_a = create_matrix(row, col);
-    int** matrix_b = create_matrix(row, col);
-    int** matrix_a_t = create_matrix(col, row);
+    scanf("%d %d", &row, &col);//scanf를 통해서 행과열의 크기값을 받기 
+    int** matrix_a = create_matrix(row, col);//matrix_a 만들기
+    int** matrix_b = create_matrix(row, col);//matrix_b 만들기
+    int** matrix_a_t = create_matrix(col, row);//matrix_a_t 만들기
 
     printf("Matrix Created.\n");
 
-    if (matrix_a == NULL || matrix_b == NULL) {return -1;}
+    if (matrix_a == NULL || matrix_b == NULL) {return -1;} //비어있으면 오류
 
     do{
         printf("----------------------------------------------------------------\n");
@@ -42,52 +42,52 @@ int main()
         printf("----------------------------------------------------------------\n");
 
         printf("Command = ");
-        scanf(" %c", &command);
+        scanf(" %c", &command);//입력 받음 
 
         switch(command) {
-        case 'z': case 'Z':
+        case 'z': case 'Z': //z 선택시
             printf("Matrix Initialized\n");
-            fill_data(matrix_a, row, col);
-            fill_data(matrix_b, row, col);
+            fill_data(matrix_a, row, col);//matrix_a의 fill_data 함수 실행
+            fill_data(matrix_b, row, col);//matrix_b의 fill_data 함수 실행
             break;
-        case 'p': case 'P':
+        case 'p': case 'P'://p 선택시
             printf("Print matrix\n");
             printf("matrix_a\n");
-            print_matrix(matrix_a, row, col);
+            print_matrix(matrix_a, row, col);//matrix_a의 print_matrix함수 실행
             printf("matrix_b\n");
-            print_matrix(matrix_b, row, col);
+            print_matrix(matrix_b, row, col);//matrix_b의 print_matrix함수 실행
             break;
-        case 'a': case 'A':
+        case 'a': case 'A'://a 선택시
             printf("Add two matrices\n");
-            addition_matrix(matrix_a, matrix_b, row, col);
+            addition_matrix(matrix_a, matrix_b, row, col);//matrix_a와 matrix_b,addtion_matrix함수 실행
             break;
-        case 's': case 'S':
+        case 's': case 'S'://s 선택시
             printf("Subtract two matrices \n");
-            subtraction_matrix(matrix_a, matrix_b, row, col);
+            subtraction_matrix(matrix_a, matrix_b, row, col);//matrix_a와 matrix_b,subtraction_matrix함수 실행
             break;
-        case 't': case 'T':
+        case 't': case 'T'://t 선택시
             printf("Transpose matrix_a \n");
             printf("matrix_a\n");
-            transpose_matrix(matrix_a, matrix_a_t, col, row);
-            print_matrix(matrix_a_t, col, row);
+            transpose_matrix(matrix_a, matrix_a_t, col, row);//matrix_a와 matrix_a_t,transpose_matrix함수 실행
+            print_matrix(matrix_a_t, col, row);//출력
             break;
-        case 'm': case 'M':
+        case 'm': case 'M'://m 선택시
             printf("Multiply matrix_a with transposed matrix_a \n");
-            transpose_matrix(matrix_a, matrix_a_t, col, row);
-            multiply_matrix(matrix_a, matrix_a_t, row, col);
+            transpose_matrix(matrix_a, matrix_a_t, col, row);//matrix_a와 matrix_a_t,transpose_matrix함수 실행
+            multiply_matrix(matrix_a, matrix_a_t, row, col);//matrix_a와 matrix_a_t,multiply_matrix함수 실행
             break;
-        case 'q': case 'Q':
+        case 'q': case 'Q'://q 선택시
             printf("Free all matrices..\n");
-            free_matrix(matrix_a_t, col, row);
-            free_matrix(matrix_a, row, col);
-            free_matrix(matrix_b, row, col);
+            free_matrix(matrix_a_t, col, row);//matrix_a_t,free_matrix
+            free_matrix(matrix_a, row, col);//matrix_a,free_matrix
+            free_matrix(matrix_b, row, col);//matrix_b,free_matrix
             break;
         default:
-            printf("\n       >>>>>   Concentration!!   <<<<<     \n");
+            printf("\n       >>>>>   Concentration!!   <<<<<     \n"); //항상 출력
             break;
         }
 
-    }while(command != 'q' && command != 'Q');
+    }while(command != 'q' && command != 'Q');//q전까지 반복
 
     return 1;
 }
@@ -122,7 +122,7 @@ void print_matrix(int** matrix, int row, int col)
     if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return;
-	}
+	}//행열 값 0이면 오류값
 
     for(i=0; i<row; i++)
         for(j=0; j<col; j++)
@@ -131,7 +131,7 @@ void print_matrix(int** matrix, int row, int col)
 
      if (matrix == NULL) {
 		printf("Memory Allocation Failed.\n");
-	}
+	}// 비어있을 경우 오류값 
 	return;
 
 }
@@ -145,7 +145,7 @@ int free_matrix(int** matrix, int row, int col)
 	if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
 
 	for (i = 0; i < row; i++) {
 		free(matrix[i]);//free를 통해서 메모리 해제 해준다.
@@ -162,7 +162,7 @@ int fill_data(int** matrix, int row, int col)
     if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
 
     int i,j;
     for(i=0; i<row; i++)
@@ -172,7 +172,7 @@ int fill_data(int** matrix, int row, int col)
     if (matrix == NULL) {
 		printf("Memory Allocation Failed.\n");
 		return -1;
-	}
+	}// 비어있을 경우 오류값 
 
 	return 1;
 }
@@ -185,7 +185,7 @@ int addition_matrix(int** matrix_a, int** matrix_b, int row, int col)
     if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
 
     int i,j;
     
@@ -197,9 +197,10 @@ int addition_matrix(int** matrix_a, int** matrix_b, int row, int col)
     if (matrix_a == NULL || matrix_b == NULL || matrix_sum == NULL) {
 		printf("Memory Allocation Failed.\n");
 		return -1;
-	}
+	}// 비어있을 경우 오류값 
+
     print_matrix(matrix_sum, row, col);
-	free_matrix(matrix_sum, row, col);
+	free_matrix(matrix_sum, row, col); //matrix_sum에 대해, free_matrix
     return 1;
 
 }
@@ -214,7 +215,7 @@ int subtraction_matrix(int** matrix_a, int** matrix_b, int row, int col)
     if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
     
     for(i=0; i<row; i++)
         for(j=0; j<col; j++)
@@ -224,9 +225,10 @@ int subtraction_matrix(int** matrix_a, int** matrix_b, int row, int col)
     if (matrix_a == NULL || matrix_b == NULL || matrix_sub == NULL) {
 		printf("Memory Allocation Failed.\n");
 		return -1;
-	}
+	}// 비어있을 경우 오류값 
+
     print_matrix(matrix_sub, row, col);
-	free_matrix(matrix_sub, row, col);
+	free_matrix(matrix_sub, row, col);//matrix_sub에 대해,free_matrix
     return 1;
 
 }
@@ -239,7 +241,7 @@ int transpose_matrix(int** matrix, int** matrix_t, int row, int col)
   if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
 
   for(i=0; i<row; i++)
         for(j=0; j<col; j++)
@@ -249,7 +251,7 @@ int transpose_matrix(int** matrix, int** matrix_t, int row, int col)
   if (matrix == NULL || matrix_t ==NULL) {
 		printf("Memory Allocation Failed.\n");
 		return -1;
-	}
+	}// 비어있을 경우 오류값 
 
 	return 1;
 }
@@ -265,7 +267,8 @@ int multiply_matrix(int** matrix_a, int** matrix_t, int row, int col)
      if (row <= 0 || col <= 0) {
 		printf("Check the size of row and col!\n");
 		return -1;
-	}
+	}//행열 값 0이면 오류값
+
     for (int k= 0; k < row;k++) { // matrix_a의 행은 크게 row번 바뀌어야 한다. 
         for(i=0; i<row; i++){//matrix_t의 행은 각각의 값을 곱하기 위해서 row*row번 바뀌어야 한다.
             temp = 0; //i가 바뀔때마다 temp 초기화
@@ -278,9 +281,10 @@ int multiply_matrix(int** matrix_a, int** matrix_t, int row, int col)
      if (matrix_a == NULL || matrix_t == NULL || matrix_axt == NULL) {
 		printf("Memory Allocation Failed.\n");
 		return -1;
-	}
+	}// 비어있을 경우 오류값 
+
     print_matrix(matrix_axt, row, row);//출력
-	free_matrix(matrix_axt, row, col);//free_matrix로 초기화 
+	free_matrix(matrix_axt, row, col);//free_matrix로 해제
     return 1;
 }
 
